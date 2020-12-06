@@ -1,22 +1,8 @@
 from functools import reduce
 from operator import mul
 
-from helpers import readlines
+from helpers import readlines, rpath, tpath
 
-
-test_data = [
-  '..##.......',
-  '#...#...#..',
-  '.#....#..#.',
-  '..#.#...#.#',
-  '.#...##..#.',
-  '..#.##.....',
-  '.#.#.#....#',
-  '.#........#',
-  '#.##...#...',
-  '#...##....#',
-  '.#..#...#.#',
-]
 
 def count_trees(data, dx, dy, startx=0, starty=0):
   realx, x, y = startx, startx, starty
@@ -40,7 +26,8 @@ def part2(data):
   slopes = ((1,1), (3,1), (5,1), (7,1), (1,2))
   return reduce(mul, [count_trees(data, dx, dy) for dx, dy in slopes])
 
+
 if __name__ == '__main__':
-  data = readlines('day3.txt')
+  data = readlines(rpath('day3.txt'))
   print(part1(data))
   print(part2(data))

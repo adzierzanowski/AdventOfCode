@@ -1,11 +1,5 @@
-from helpers import readlines
+from helpers import readlines, rpath, tpath
 
-
-test_data = [
-  'BFFFBBFRRR',
-  'FFFBBBFRRR',
-  'BBFFBBFRLL'
-]
 
 class Seat:
   MAX_ROW = 127
@@ -51,7 +45,7 @@ def part2(seats):
       return seat - 1
 
 if __name__ == '__main__':
-  data = readlines('day5.txt')
+  data = readlines(rpath('day5.txt'))
   seats = [Seat.from_string(s) for s in data]
   print(part1(seats))
   print(part2(seats))

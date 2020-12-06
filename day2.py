@@ -1,14 +1,8 @@
 import re
 from dataclasses import dataclass
 
-from helpers import readlines
+from helpers import readlines, rpath, tpath
 
-
-test_data = [
-  '1-3 a: abcde',
-  '1-3 b: cdefg',
-  '2-9 c: ccccccccc'
-]
 
 rx = re.compile(r'(?P<min>\d+)-(?P<max>\d+) (?P<chr>\w): (?P<pwd>\w+)')
 
@@ -45,7 +39,7 @@ def part2(entries):
 
 
 if __name__ == '__main__':
-  data = readlines('day2.txt')
+  data = readlines(rpath('day2.txt'))
   entries = parse(data)
   print(part1(entries))
   print(part2(entries))

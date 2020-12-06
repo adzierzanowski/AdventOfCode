@@ -1,17 +1,7 @@
 import sys
 
-from helpers import readlines
-from timeit import timeit
+from helpers import readlines, rpath, tpath
 
-
-test_data = [
-  1721,
-  979,
-  366,
-  299,
-  675,
-  1456,
-]
 
 def part1(data):
   for i, val in enumerate(data):
@@ -28,6 +18,6 @@ def part2(data):
 
 
 if __name__ == '__main__':
-  data = readlines('day1.txt', conv=int)
+  data = readlines(rpath('day1.txt'), conv=int)
   print(part1(data))
   print(part2(data))

@@ -1,3 +1,12 @@
+import os
+
+
+def rpath(path):
+  return os.path.join('data', 'real', path)
+
+def tpath(path):
+  return os.path.join('data', 'test', path)
+
 def identity(x):
   return x
 

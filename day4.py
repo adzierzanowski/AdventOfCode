@@ -1,25 +1,8 @@
 import re
-
 from dataclasses import dataclass
 
-from helpers import readlines
+from helpers import readlines, rpath, tpath
 
-
-test_data = [
-  'ecl:gry pid:860033327 eyr:2020 hcl:#fffffd\n'
-  'byr:1937 iyr:2017 cid:147 hgt:183cm',
-
-  'iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884\n'
-  'hcl:#cfa07d byr:1929',
-
-  'hcl:#ae17e1 iyr:2013\n'
-  'eyr:2024\n'
-  'ecl:brn pid:760753108 byr:1931\n'
-  'hgt:179cm',
-
-  'hcl:#cfa07d eyr:2025 pid:166559648\n'
-  'iyr:2011 ecl:brn hgt:59in'
-]
 
 rx = re.compile(r'(?P<key>\w{3}):(?P<val>[#\w\d]+)\b')
 pid_rx = re.compile(r'\d{9}')
@@ -73,7 +56,7 @@ def part2(passports):
 
 
 if __name__ == '__main__':
-  data = readlines('day4.txt', sep='\n\n')
+  data = readlines(rpath('day4.txt'), sep='\n\n')
   passports = get_passports(data)
   print(part1(passports))
   print(part2(passports))
