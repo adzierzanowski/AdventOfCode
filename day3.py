@@ -5,12 +5,11 @@ from helpers import readlines, rpath, tpath
 
 
 def count_trees(data, dx, dy, startx=0, starty=0):
-  realx, x, y = startx, startx, starty
+  x, y = startx, starty
   w, h = len(data[0]), len(data)
   tree_count = 0
 
   while y + dy < h:
-    realx += dx
     x += dx
     x %= w
     y += dy
