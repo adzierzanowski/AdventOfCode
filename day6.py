@@ -1,21 +1,12 @@
 from functools import reduce
 from helpers import readlines
 
+
 test_data = [
   'abc',
-
-  'a\n'
-  'b\n'
-  'c',
-
-  'ab\n'
-  'ac',
-
-  'a\n'
-  'a\n'
-  'a\n'
-  'a',
-
+  'a\nb\nc',
+  'ab\nac',
+  'a\na\na\na',
   'b'
 ]
 
