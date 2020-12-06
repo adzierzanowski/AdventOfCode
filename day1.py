@@ -28,6 +28,6 @@ def part2(data):
 
 
 if __name__ == '__main__':
-  data = [int(x) for x in readlines('day1.txt')]
+  data = readlines('day1.txt', conv=int)
   print(part1(data))
   print(part2(data))

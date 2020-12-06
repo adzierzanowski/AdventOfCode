@@ -22,8 +22,8 @@ class Seat:
     col_range = [0, Seat.MAX_COL]
 
     for c in string:
-      row_pivot = int(row_range[0] + (row_range[1] - row_range[0])/2)
-      col_pivot = int(col_range[0] + (col_range[1] - col_range[0])/2)
+      row_pivot = int(row_range[0] + (row_range[1] - row_range[0]) / 2)
+      col_pivot = int(col_range[0] + (col_range[1] - col_range[0]) / 2)
 
       if c == 'F':
         row_range[1] = row_pivot
@@ -41,12 +41,10 @@ class Seat:
 
     return Seat(row, col)
 
-def part1(data):
-  seats = [Seat.from_string(s) for s in data]
+def part1(seats):
   return max([s.seat_number for s in seats])
 
-def part2(data):
-  seats = [Seat.from_string(s) for s in data]
+def part2(seats):
   seats = sorted([s.seat_number for s in seats])
   for i, seat in zip(range(min(seats), max(seats)+1), seats):
     if i != seat:
@@ -54,5 +52,6 @@ def part2(data):
 
 if __name__ == '__main__':
   data = readlines('day5.txt')
-  print(part1(data))
-  print(part2(data))
+  seats = [Seat.from_string(s) for s in data]
+  print(part1(seats))
+  print(part2(seats))

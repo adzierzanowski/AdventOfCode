@@ -65,16 +65,15 @@ def get_passports(data):
         **{m.group('key'): m.group('val') for m in re.finditer(rx, string)}))
   return passports
 
-def part1(data):
-  passports = get_passports(data)
+def part1(passports):
   return len([passport for passport in passports if passport.valid1()])
 
-def part2(data):
-  passports = get_passports(data)
+def part2(passports):
   return len([passport for passport in passports if passport.valid2()])
 
 
 if __name__ == '__main__':
-  data = readlines('day4.txt', separator='\n\n')
-  print(part1(data))
-  print(part2(data))
+  data = readlines('day4.txt', sep='\n\n')
+  passports = get_passports(data)
+  print(part1(passports))
+  print(part2(passports))
