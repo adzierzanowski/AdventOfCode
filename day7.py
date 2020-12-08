@@ -2,7 +2,6 @@
 I'm not proud of this code, it's pretty embarassing. :/
 '''
 
-import json
 import re
 
 from helpers import readlines, rpath, tpath
@@ -35,26 +34,19 @@ class Bag:
     return Bag(bagname, children=children)
 
 def find_paths(from_, to, bags):
-  '''Returns all paths from `from_` to `to`. If `to` is None, then the returned
-  paths end with the element with no further children'''
+  '''Returns all paths from `from_` to `to`.'''
 
   first = bags[from_]
+  last = bags[to]
 
-  if to is not None:
-    last = bags[to]
-
-  paths = []
-  if to is None and not first.children:
-    paths.append([first])
-    return paths
-  elif to in first.children:
-    paths.append([first, last])
-    return paths
+  if to in first.children:
+    return [[first, last]]
   else:
+    paths = []
     for cname, child in first.children.items():
       for path in find_paths(cname, to, bags):
         paths.append([first] + path)
-  return paths
+    return paths
 
 def count_bags(from_, bags):
   first = bags[from_]
