@@ -64,15 +64,13 @@ def part1(bags):
 
   # For every bag, find all paths to shiny gold
   for bagname, bag in bags.items():
-    paths = find_paths(bagname, 'shiny gold', bags)
-    if paths:
+    for path in find_paths(bagname, 'shiny gold', bags):
       # Now, if first (outermost) element of the path is already counted
       # then don't count it
-      for path in paths:
-        first = path[0]
-        if not first.name in outermost:
-          all_paths.append(path)
-          outermost.add(first.name)
+      first = path[0]
+      if not first.name in outermost:
+        all_paths.append(path)
+        outermost.add(first.name)
 
   return len(all_paths)
 
