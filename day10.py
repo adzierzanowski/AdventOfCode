@@ -1,9 +1,6 @@
 from helpers import readlines, rpath, tpath
 
 
-def available(data, current):
-  return [d for d in data if 1 <= d - current <= 3]
-
 def part1(data):
   path = [0] + sorted(data) + [max(data)+3]
   diffs = [path[i+1] - path[i] for i in range(len(path)-1)]
