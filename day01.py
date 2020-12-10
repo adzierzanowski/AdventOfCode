@@ -1,18 +1,17 @@
+from itertools import permutations
+
 from helpers import readlines, rpath, tpath
 
 
 def part1(data):
-  for i, val in enumerate(data):
-    for val2 in data[i+1:]:
-      if val + val2 == 2020:
-        return val * val2
+  for seq in permutations(data, 2):
+    if sum(seq) == 2020:
+      return seq[0] * seq[1]
 
 def part2(data):
-  for i, val in enumerate(data):
-    for j, val2 in enumerate(data[i+1:]):
-      for val3 in data[j+1:]:
-        if val + val2 + val3 == 2020:
-          return val * val2 * val3
+  for seq in permutations(data, 3):
+    if sum(seq) == 2020:
+      return seq[0] * seq[1] * seq[2]
 
 
 if __name__ == '__main__':
