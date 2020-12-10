@@ -1,7 +1,8 @@
-from operator import mul
 from functools import reduce
-import re
+from operator import mul
+
 from helpers import readlines, rpath, tpath
+
 
 def get_diffs(data):
   path = [0] + sorted(data) + [max(data)+3]
