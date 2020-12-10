@@ -25,9 +25,8 @@ def part2(data):
 
   # Sequence of four ones is sufficient for the task
   # but it would be neat if I'd actually find a formula for all cases
-  sub = {'11':2, '111':4, '1111':7}
-  subones = [sub[d] for d in ones]
-  return reduce(mul, subones)
+  sub = {'11': 2, '111': 4, '1111': 7}
+  return reduce(mul, [sub[d] for d in ones])
 
 
 if __name__ == "__main__":
