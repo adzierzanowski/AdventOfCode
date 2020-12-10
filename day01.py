@@ -1,5 +1,3 @@
-import sys
-
 from helpers import readlines, rpath, tpath
 
 
