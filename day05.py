@@ -44,6 +44,7 @@ def part2(seats):
     if i != seat:
       return seat - 1
 
+
 if __name__ == '__main__':
   data = readlines(rpath('day05.txt'))
   seats = [Seat.from_string(s) for s in data]
