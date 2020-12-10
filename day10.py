@@ -1,7 +1,7 @@
 from functools import reduce
 from operator import mul
 
-from helpers import readlines, rpath, tpath
+from helpers import readlines, rpath, tpath, tribonacci
 
 
 def get_diffs(data):
@@ -25,11 +25,21 @@ def part2(data):
 
   # Sequence of four ones is sufficient for the task
   # but it would be neat if I'd actually find a formula for all cases
+  # (see part2_tribonacci)
+
   sub = {'11': 2, '111': 4, '1111': 7}
   return reduce(mul, [sub[d] for d in ones])
+
+def part2_tribonacci(data):
+  # Ok, after some research, someone told me it's a Tribonacci sequence
+  # So here's part2 using this function
+  diffs = ''.join([str(x) for x in get_diffs(data)])
+  ones = [d for d in diffs.split('3') if d not in ('', '1')]
+  return reduce(mul, [tribonacci(len(d)) for d in ones])
 
 
 if __name__ == "__main__":
   data = readlines(rpath('day10.txt'), conv=int)
   print(part1(data))
   print(part2(data))
+  print(part2_tribonacci(data))
