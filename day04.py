@@ -56,7 +56,7 @@ def part2(passports):
 
 
 if __name__ == '__main__':
-  data = readlines(rpath('day4.txt'), sep='\n\n')
+  data = readlines(rpath('day04.txt'), sep='\n\n')
   passports = get_passports(data)
   print(part1(passports))
   print(part2(passports))

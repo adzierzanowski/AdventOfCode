@@ -39,7 +39,7 @@ def part2(entries):
 
 
 if __name__ == '__main__':
-  data = readlines(rpath('day2.txt'))
+  data = readlines(rpath('day02.txt'))
   entries = parse(data)
   print(part1(entries))
   print(part2(entries))

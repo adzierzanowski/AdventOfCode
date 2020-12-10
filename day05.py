@@ -45,7 +45,7 @@ def part2(seats):
       return seat - 1
 
 if __name__ == '__main__':
-  data = readlines(rpath('day5.txt'))
+  data = readlines(rpath('day05.txt'))
   seats = [Seat.from_string(s) for s in data]
   print(part1(seats))
   print(part2(seats))

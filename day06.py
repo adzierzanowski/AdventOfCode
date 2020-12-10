@@ -13,6 +13,6 @@ def part2(data):
 
 
 if __name__ == '__main__':
-  data = readlines(rpath('day6.txt'), sep='\n\n')
+  data = readlines(rpath('day06.txt'), sep='\n\n')
   print(part1(data))
   print(part2(data))

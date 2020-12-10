@@ -34,6 +34,6 @@ def part2(data):
       return cpu.acc
 
 if __name__ == '__main__':
-  data = readlines(rpath('day8.txt'))
+  data = readlines(rpath('day08.txt'))
   print(part1(data))
   print(part2(data))

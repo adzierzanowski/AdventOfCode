@@ -18,6 +18,6 @@ def part2(data):
 
 
 if __name__ == '__main__':
-  data = readlines(rpath('day1.txt'), conv=int)
+  data = readlines(rpath('day01.txt'), conv=int)
   print(part1(data))
   print(part2(data))

@@ -78,7 +78,7 @@ def part2(bags):
   return count_bags('shiny gold', bags) - 1
 
 if __name__ == '__main__':
-  data = readlines(rpath('day7.txt'))
+  data = readlines(rpath('day07.txt'))
   bags = {b.name: b for b in [Bag.from_line(line) for line in data]}
 
   print(part1(bags))
