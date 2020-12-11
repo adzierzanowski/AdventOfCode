@@ -1,7 +1,12 @@
-from functools import reduce
 
+s = 'abcd'
 
-l = ['abc', 'ac', 'aqq']
+def all_(ls):
+  for c in ls:
+    if not c:
+      return False
+  return True
 
-ls = [set(x) for x in l]
-print(reduce(lambda x, y: x.intersection(y), ls))
+for i in range(5):
+  if all_((i < len(s), s[i] == 'a')):
+    print(s[i])
