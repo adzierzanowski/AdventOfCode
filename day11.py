@@ -1,4 +1,5 @@
 from functools import partial
+
 from helpers import readlines, rpath, tpath
 
 
@@ -25,9 +26,7 @@ def occupiedf(data, x, y, w, h, rx=None, ry=None):
   return 0
 
 def queen_seats_occupied(data, x, y, w, h):
-  count = 0
-
-  for occupied in (
+  return sum([occupied(data, x, y, w, h) for occupied in (
     partial(occupiedf, rx=range(x+1, w)),
     partial(occupiedf, rx=reversed(range(0, x))),
     partial(occupiedf, ry=range(y+1, h)),
@@ -36,10 +35,7 @@ def queen_seats_occupied(data, x, y, w, h):
     partial(occupiedf, rx=reversed(range(0, x)), ry=range(y+1, h)),
     partial(occupiedf, rx=(reversed(range(0, x))), ry=reversed(range(0, y))),
     partial(occupiedf, rx=range(x+1, w), ry=reversed(range(0, y))),
-  ):
-    count += occupied(data, x, y, w, h)
-
-  return count
+  )])
 
 def switch(data, v, x, y, w, h, func=None, unseat_limit=None):
   if v == 'L':
