@@ -3,7 +3,7 @@ from enum import Enum
 from helpers import readlines, rpath, tpath
 
 
-W, N, E, S = 0, 1, 2, 3
+W, N, E, S = range(4)
 
 class Point:
   def __init__(self, x=0, y=0):
