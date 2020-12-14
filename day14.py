@@ -5,13 +5,13 @@ from helpers import readlines, rpath, tpath
 
 def handle_mem1(mem, mask, addr, val):
   val = f'{int(val):036b}'
-  val = int(''.join([v if m == 'X' else m for m, v in zip(mask, val)]), 2)
-  mem[addr] = int(val)
+  val = ''.join([v if m == 'X' else m for m, v in zip(mask, val)])
+  mem[addr] = int(val, 2)
 
 def handle_mem2(mem, mask, addr, val):
-  addr = f'{addr:036b}'
   val = int(val)
-  addr = ''.join([v if m == '0' else m for m, v in zip(mask, addr)])
+  addr = f'{addr:036b}'
+  addr = ''.join([a if m == '0' else m for m, a in zip(mask, addr)])
 
   prods = product('01', repeat=addr.count('X'))
   for prod in prods:
