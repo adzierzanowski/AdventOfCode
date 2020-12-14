@@ -6,8 +6,8 @@ import re
 
 from helpers import readlines, rpath, tpath
 
-content_rx = re.compile(r'(?P<bagcnt>\d+) (?P<bagname>[\w ]+) bags?')
 
+content_rx = re.compile(r'(?P<bagcnt>\d+) (?P<bagname>[\w ]+) bags?')
 
 class Bag:
   def __init__(self, name, children=None, count=None):

@@ -1,5 +1,3 @@
-from enum import Enum
-
 from helpers import readlines, rpath, tpath
 
 
