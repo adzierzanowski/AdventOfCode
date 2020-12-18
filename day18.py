@@ -20,7 +20,8 @@ def evaluate(expr, plus_precedence=False):
       paren_expr += symbol
 
       if paren == 0:
-        valstack.append(evaluate(paren_expr, plus_precedence))
+        # [:-1] omits the last redundant closing paren, it works anyway though
+        valstack.append(evaluate(paren_expr[:-1], plus_precedence))
         paren_expr = ''
 
     elif symbol == '+':
