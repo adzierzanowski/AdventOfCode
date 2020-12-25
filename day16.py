@@ -53,7 +53,7 @@ def part2(ranges, tickets, allrng, mytick):
   return reduce(mul, res)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   data = [d.split('\n') for d in readlines(rpath('day16.txt'), sep='\n\n')]
   ranges, mytick, tickets, allrng = parse(data)
 

@@ -38,7 +38,7 @@ def part2_tribonacci(data):
   return reduce(mul, [tribonacci(len(d)) for d in ones])
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   data = readlines(rpath('day10.txt'), conv=int)
   print(part1(data))
   print(part2(data))

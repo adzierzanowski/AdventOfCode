@@ -37,7 +37,7 @@ def part2(buslines):
   return chinese(blines)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   data = readlines(rpath('day13.txt'))
   tstmp = int(data[0])
   buslines1 = [int(x) for x in data[1].split(',') if x != 'x']

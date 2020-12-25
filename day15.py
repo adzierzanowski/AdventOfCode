@@ -37,7 +37,7 @@ def part2(data):
   return task(data, 30_000_000)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   data = readlines(
     rpath('day15.txt'), conv=lambda l: [int(x) for x in l.split(',')])[0]
   print(part1(data))

@@ -77,7 +77,7 @@ def part2(data):
   return task(data, 'movew')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   data = readlines(rpath('day12.txt'))
   print(part1(data))
   print(part2(data))

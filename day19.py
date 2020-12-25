@@ -44,7 +44,7 @@ def part2(ruleset, strings):
   return len([m for m in matches if m is True])
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   data = readlines(rpath('day19.txt'), sep='\n\n')
 
   rules, strings = data[0], data[1]

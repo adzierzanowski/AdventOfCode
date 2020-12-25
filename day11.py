@@ -66,7 +66,7 @@ def part2(data, w, h):
   return task(data, w, h, swf)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   data = readlines(rpath('day11.txt'))
   w, h = len(data[0]), len(data)
   print(part1(data, w, h))

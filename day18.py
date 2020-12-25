@@ -53,7 +53,7 @@ def part2(data):
   return sum((evaluate(line, True) for line in data))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   data = readlines(rpath('day18.txt'))
 
   print(part1(data))
