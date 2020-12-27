@@ -96,7 +96,7 @@ def part2(data):
   return count_b(ts)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   data = readlines(rpath('day24.txt'), conv=parse)
 
   print(part1(data))

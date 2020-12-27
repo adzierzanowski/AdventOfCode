@@ -43,7 +43,7 @@ def part2(data):
   return task(data, handle_mem2)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   data = readlines(rpath('day14.txt'))
   print(part1(data))
   print(part2(data))
