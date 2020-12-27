@@ -81,21 +81,45 @@
     ctx.clearRect(0, 0, cvs.width, cvs.height);
   }
 
+
   let i = 0;
 
+  function showNext() {
+    i++;
+    if (i < tiles.length) {
+      clear();
+      drawGrid(tiles, i);
+      setTimeout(showNext, 1000);
+    }
+  }
+
   document.addEventListener('keypress', (e) => {
-    if (e.key == '1') {
-      i--;
-    } else if (e.key == '2') {
-      i++;
-    } else if (e.key == '0') {
-      i = 0;
-    } else if (e.key == '9') {
-      i = tiles.length - 1;
+    switch (e.key) {
+      case '1':
+        i--;
+        break;
+
+      case '2':
+        i++;
+        break;
+
+      case '0':
+        i = 0;
+        break;
+
+      case '9':
+        i = tiles.length - 1;
+        break;
+
+      case 'p':
+        setTimeout(showNext, 1000);
+        break;
     }
     clear();
     drawGrid(tiles, i);
   });
+
+
 
   drawGrid(tiles, i);
 
