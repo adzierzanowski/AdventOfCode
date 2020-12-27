@@ -7,14 +7,10 @@ from helpers import readlines, rpath, tpath
 def parse(line):
   return deque([int(x) for x in line.split('\n')[1:]])
 
-def game(d1, d2, n=1):
-  #print(f'game #{n}')
+def game(d1, d2):
   previous = set()
-  #r = 1
 
   while d1 and d2:
-    #print(f'    round #{r}')
-    #r+=1
     if (tuple(d1), tuple(d2)) in previous:
       return d1, 1
 
@@ -23,7 +19,7 @@ def game(d1, d2, n=1):
     c1, c2 = d1.popleft(), d2.popleft()
 
     if c1 <= len(d1) and c2 <= len(d2):
-      d, w = game(deque(tuple(d1)[:c1]), deque(tuple(d2)[:c2]), n=n+1)
+      d, w = game(deque(tuple(d1)[:c1]), deque(tuple(d2)[:c2]))
       if w == 1:
         d1 += c1, c2
       else:
