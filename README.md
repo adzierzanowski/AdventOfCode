@@ -39,3 +39,13 @@ Yeah, so, under 5 minutes. Not great, not terrible.
 \*\* could be optimized better
 
 \*\*\* on i5-8259U
+
+#### Lessons learned
+
+* Caching is VERY important
+* Correct data structures are even more important
+* Python's `list.index()` is slooow
+* Changing [square brackets to parentheses](https://en.wikipedia.org/wiki/Generator_(computer_programming)) can speed up things significantly
+* Tribonacci sequence is a thing
+* Rewriting things from scratch is a pretty good tactic (I sometimes use it in my job too)
+* There's no point in using 3 coordinates for a hex grid, 2 is sufficient
