@@ -1,6 +1,9 @@
 ### AdventOfCode 2020
 
 3 days late but I've managed to do all the puzzles.
+I didn't spend much time optimizing (just the obvious things that I catched
+during the coding), so some of the solutions take long to complete.
+
 
 | Day | Theme                         | Time\*\*\* | Was it hard?*                               |
 |-----|-------------------------------|------------|---------------------------------------------|
