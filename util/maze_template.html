@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Maze</title>
+    <meta charset="utf-8">
+
+    <style>
+      body {
+        font-family: 'Jetbrains Mono', monospace;
+        background-color: black;
+        color: #fff;
+      }
+
+      .maze {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .maze__row {
+        display: flex;
+      }
+
+      .maze__cell {
+        font-size: 8px;
+        width: 10px;
+        height: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        cursor: crosshair;
+      }
+
+      .maze__cell:hover {
+        border: 1px solid #fff;
+      }
+
+      .maze__cell--wall {
+        background-color: gray;
+      }
+
+      #content {
+        width: 100%;
+        display: flex;
+        gap: 20px;
+      }
+
+      #infobox-wrapper {
+        position: relative;
+      }
+
+      #infobox {
+        position: sticky;
+        top: 10px;
+        left: 0;
+      }
+
+      {% for k, v in colormap.items() %}
+        .maze__cell[data-char='{{k}}'] {
+          background-color: rgb{{v}};
+        }
+      {% endfor%}
+
+    </style>
+  </head>
+
+  <body>
+    <div id="content">
+      <div id="maze" class="maze">
+        {% for line in maze %}
+          {% set line_loop = loop %}
+          <div class="maze__row">
+            {% for char in line %}
+              <div
+                class="maze__cell {% if char in wallchars %}maze__cell--wall{% endif %}"
+                data-char="{{char}}"
+                data-pos="{{loop.index-1}}, {{line_loop.index-1}}"
+              >
+                {% if char not in emptychars + wallchars %}
+                  {{char}}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+      <div id="infobox-wrapper">
+        <div id="infobox">
+          <div id="infobox__char"></div>
+          <div id="infobox__pos"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll('.maze__cell').forEach((el, i) => {
+        el.addEventListener('click', e => {
+          document.getElementById('infobox__char').innerText = el.getAttribute('data-char');
+          document.getElementById('infobox__pos').innerText = el.getAttribute('data-pos');
+        });
+      });
+    </script>
+  </body>
+</html>
