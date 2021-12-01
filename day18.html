@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Maze</title>
+    <meta charset="utf-8">
+
+    <style>
+      body {
+        font-family: 'Jetbrains Mono', monospace;
+        background-color: black;
+        color: #fff;
+      }
+
+      .maze {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .maze__row {
+        display: flex;
+      }
+
+      .maze__cell {
+        font-size: 8px;
+        width: 10px;
+        height: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        cursor: crosshair;
+      }
+
+      .maze__cell:hover {
+        border: 1px solid #fff;
+      }
+
+      .maze__cell--wall {
+        background-color: gray;
+      }
+
+      #content {
+        width: 100%;
+        display: flex;
+        gap: 20px;
+      }
+
+      #infobox-wrapper {
+        position: relative;
+      }
+
+      #infobox {
+        position: sticky;
+        top: 10px;
+        left: 0;
+      }
+
+      
+        .maze__cell[data-char='#'] {
+          background-color: rgb(64, 64, 64);
+        }
+      
+        .maze__cell[data-char='a'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='b'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='c'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='d'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='e'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='f'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='g'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='h'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='i'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='j'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='k'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='l'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='m'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='n'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='o'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='p'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='q'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='r'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='s'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='t'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='u'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='v'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='w'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='x'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='y'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='z'] {
+          background-color: rgb(0, 128, 128);
+        }
+      
+        .maze__cell[data-char='A'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='B'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='C'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='D'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='E'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='F'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='G'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='H'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='I'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='J'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='K'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='L'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='M'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='N'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='O'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='P'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='Q'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='R'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='S'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='T'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='U'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='V'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='W'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='X'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='Y'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+        .maze__cell[data-char='Z'] {
+          background-color: rgb(128, 0, 128);
+        }
+      
+
+    </style>
+  </head>
+
+  <body>
+    <div id="content">
+      <div id="maze" class="maze">
+        
+          
+          <div class="maze__row">
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="0, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="1, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="2, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="3, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="4, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="5, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="6, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="7, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="8, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="9, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="10, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="11, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="12, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="13, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="14, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="15, 0"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="16, 0"
+              >
+                
+              </div>
+            
+          </div>
+        
+          
+          <div class="maze__row">
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="0, 1"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="i"
+                data-pos="1, 1"
+              >
+                
+                  i
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="2, 1"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="G"
+                data-pos="3, 1"
+              >
+                
+                  G
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="4, 1"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="5, 1"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="c"
+                data-pos="6, 1"
+              >
+                
+                  c
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="7, 1"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="8, 1"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="9, 1"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="e"
+                data-pos="10, 1"
+              >
+                
+                  e
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="11, 1"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="12, 1"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="H"
+                data-pos="13, 1"
+              >
+                
+                  H
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="14, 1"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="p"
+                data-pos="15, 1"
+              >
+                
+                  p
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="16, 1"
+              >
+                
+              </div>
+            
+          </div>
+        
+          
+          <div class="maze__row">
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="0, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="1, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="2, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="3, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="4, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="5, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="6, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="7, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="8, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="9, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="10, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="11, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="12, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="13, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="14, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="15, 2"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="16, 2"
+              >
+                
+              </div>
+            
+          </div>
+        
+          
+          <div class="maze__row">
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="0, 3"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="j"
+                data-pos="1, 3"
+              >
+                
+                  j
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="2, 3"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="A"
+                data-pos="3, 3"
+              >
+                
+                  A
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="4, 3"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="5, 3"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="b"
+                data-pos="6, 3"
+              >
+                
+                  b
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="7, 3"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="8, 3"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="9, 3"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="f"
+                data-pos="10, 3"
+              >
+                
+                  f
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="11, 3"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="12, 3"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="D"
+                data-pos="13, 3"
+              >
+                
+                  D
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="14, 3"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="o"
+                data-pos="15, 3"
+              >
+                
+                  o
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="16, 3"
+              >
+                
+              </div>
+            
+          </div>
+        
+          
+          <div class="maze__row">
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="0, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="1, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="2, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="3, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="4, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="5, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="6, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="7, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="@"
+                data-pos="8, 4"
+              >
+                
+                  @
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="9, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="10, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="11, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="12, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="13, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="14, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="15, 4"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="16, 4"
+              >
+                
+              </div>
+            
+          </div>
+        
+          
+          <div class="maze__row">
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="0, 5"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="k"
+                data-pos="1, 5"
+              >
+                
+                  k
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="2, 5"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="E"
+                data-pos="3, 5"
+              >
+                
+                  E
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="4, 5"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="5, 5"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="a"
+                data-pos="6, 5"
+              >
+                
+                  a
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="7, 5"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="8, 5"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="9, 5"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="g"
+                data-pos="10, 5"
+              >
+                
+                  g
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="11, 5"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="12, 5"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="B"
+                data-pos="13, 5"
+              >
+                
+                  B
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="14, 5"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="n"
+                data-pos="15, 5"
+              >
+                
+                  n
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="16, 5"
+              >
+                
+              </div>
+            
+          </div>
+        
+          
+          <div class="maze__row">
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="0, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="1, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="2, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="3, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="4, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="5, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="6, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="7, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="8, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="9, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="10, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="11, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="12, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="13, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="14, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="15, 6"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="16, 6"
+              >
+                
+              </div>
+            
+          </div>
+        
+          
+          <div class="maze__row">
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="0, 7"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="l"
+                data-pos="1, 7"
+              >
+                
+                  l
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="2, 7"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="F"
+                data-pos="3, 7"
+              >
+                
+                  F
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="4, 7"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="5, 7"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="d"
+                data-pos="6, 7"
+              >
+                
+                  d
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="7, 7"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="8, 7"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="9, 7"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="h"
+                data-pos="10, 7"
+              >
+                
+                  h
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="11, 7"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="12, 7"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="C"
+                data-pos="13, 7"
+              >
+                
+                  C
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="."
+                data-pos="14, 7"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell "
+                data-char="m"
+                data-pos="15, 7"
+              >
+                
+                  m
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="16, 7"
+              >
+                
+              </div>
+            
+          </div>
+        
+          
+          <div class="maze__row">
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="0, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="1, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="2, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="3, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="4, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="5, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="6, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="7, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="8, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="9, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="10, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="11, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="12, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="13, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="14, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="15, 8"
+              >
+                
+              </div>
+            
+              <div
+                class="maze__cell maze__cell--wall"
+                data-char="#"
+                data-pos="16, 8"
+              >
+                
+              </div>
+            
+          </div>
+        
+      </div>
+      <div id="infobox-wrapper">
+        <div id="infobox">
+          <div id="infobox__char"></div>
+          <div id="infobox__pos"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll('.maze__cell').forEach((el, i) => {
+        el.addEventListener('click', e => {
+          document.getElementById('infobox__char').innerText = el.getAttribute('data-char');
+          document.getElementById('infobox__pos').innerText = el.getAttribute('data-pos');
+        });
+      });
+    </script>
+  </body>
+</html>
