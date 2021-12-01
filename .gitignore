@@ -2,3 +2,5 @@ __pycache__
 .vscode
 day17-unoptimized.py
 tiles.js
+data
+*.pyc
