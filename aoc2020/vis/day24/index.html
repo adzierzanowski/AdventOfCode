@@ -1,0 +1,126 @@
+<style>
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+
+<canvas width="1024" height="768"> </canvas>
+
+
+<script src="tiles.js"></script>
+
+<script>
+  function inarr(arr, el) {
+    for (let a of arr) {
+      if (a[0] == el[0] && a[1] == el[1]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  let cvs = document.querySelector('canvas');
+  let ctx = cvs.getContext('2d');
+
+  function drawGrid(blackTiles, bti) {
+    blackTiles = blackTiles[i];
+    ctx.fillStyle = '#000';
+
+    let ox = cvs.width / 2;
+    let oy = cvs.height / 2;
+
+    let R = 4;
+    let r = Math.cos(Math.PI / 6) * R;
+
+    let q = 0;
+
+    let yi = -63;
+    for (let y = oy - r * 2 * 60; y < oy + r * 2 * 60; y += 3*R/2) {
+      q++;
+      q = q % 2;
+      let xi = -120;
+
+      for (let x = ox - r * (2 * 60-q); x < ox + r * 2 * 60; x += 2*r) {
+
+        ctx.moveTo(x, y);
+        ctx.beginPath();
+        for (let i = 0; i <= 6; i++) {
+          ctx.lineTo(x + R * Math.cos(2 * i * Math.PI / 6 + Math.PI/2),
+                     y + R * Math.sin(2 * i * Math.PI / 6 + Math.PI/2));
+        }
+        if (xi == 0 && yi == 0) {
+          ctx.strokeStyle = '#0f0';
+          ctx.lineWidth = 3;
+        } else {
+          ctx.strokeStyle = '#000';
+          ctx.lineWidth = 1;
+        }
+
+        ctx.stroke();
+        if (inarr(blackTiles, [xi+q, yi])) {
+          ctx.fillStyle = '#000';
+          ctx.fill();
+          ctx.fillStyle = '#fff';
+        }
+
+        //ctx.fillText(''+(xi+q) + ' ' + yi, x, y);
+        ctx.fillStyle = '#000';
+
+        xi+=2;
+      }
+      yi++;
+    }
+
+    ctx.font = '20px Arial';
+    ctx.fillText('' + (i+1), 10, 20);
+    ctx.fillText('' + (blackTiles.length), 10, 40);
+  }
+
+  function clear() {
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+  }
+
+
+  let i = 0;
+
+  function showNext() {
+    i++;
+    if (i < tiles.length) {
+      clear();
+      drawGrid(tiles, i);
+      setTimeout(showNext, 1000);
+    }
+  }
+
+  document.addEventListener('keypress', (e) => {
+    switch (e.key) {
+      case '1':
+        i--;
+        break;
+
+      case '2':
+        i++;
+        break;
+
+      case '0':
+        i = 0;
+        break;
+
+      case '9':
+        i = tiles.length - 1;
+        break;
+
+      case 'p':
+        setTimeout(showNext, 1000);
+        break;
+    }
+    clear();
+    drawGrid(tiles, i);
+  });
+
+
+
+  drawGrid(tiles, i);
+
+</script>
