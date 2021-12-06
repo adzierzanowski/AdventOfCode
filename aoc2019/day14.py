@@ -1,98 +1,67 @@
-import re
 import math
-
 from util.helpers import readlines, readraw, rpath, tpath
 
 
-def parse_reactions(data):
-  reactions = {}
-  for line in data:
-    src, dst = line.split(' => ')
-    src = [q.split(' ') for q in src.split(', ')]
-    src = {y: int(x) for x, y in src}
+class Factory:
+  def __init__(self, reactions):
+    self.reactions = reactions
 
-    x, y = dst.split(' ')
-    reactions[y] = (src, int(x))
-  return reactions
+  @staticmethod
+  def from_data(data):
+    out = {}
+    for line in data:
+      subs, prod = line.split(' => ')
+      subs = [sub.split(' ') for sub in subs.split(', ')]
+      subs = [(int(x), y) for x, y in subs]
+      prodcnt, prodname = prod.split(' ')
+      out[prodname] = (int(prodcnt), subs)
+    return Factory(out)
+
+  def substrates(self, cnt, prod):
+    if prod in self.reactions:
+      for_cnt_of_prod, subs = self.reactions[prod]
+      subs = [(subcnt * math.ceil(cnt / for_cnt_of_prod), subname) for subcnt, subname in subs]
+      #print('for', cnt, 'of', prod, 'you need', subs)
+      return {sname: scnt for scnt, sname in subs}
+    return {}
 
 
 def part1(data):
-  reactions = parse_reactions(data)
+  factory = Factory.from_data(data)
+  need = factory.substrates(1, 'FUEL')
 
-  def find_substrates(substrates, simple=True):
-    subs = {}#'ORE': 0}
-    for sub, subcnt in substrates.items():
-      if sub == 'ORE':
-        #subs['ORE'] += subcnt
-        continue
-      subsub, makecnt = reactions[sub]
-      makecnt = math.ceil(subcnt / makecnt)
-      #mksub = {s: c * makecnt for s, c in subsub.items()}
-      mksub = {}
-      for s, c in subsub.items():
-        print('\x1b[38;5;2msubsub\x1b[0m', s, c, s == 'ORE', sub)
-        if s == 'ORE' and simple:
-          if sub in mksub:
-            mksub[sub] += subcnt
-          else:
-            mksub[sub] = subcnt
+  def revise(need):
+    new_need = {**need}
+    keys = sorted(
+      [k for k in new_need if k != 'ORE'],
+      key=lambda m: -len([x for x in factory.substrates(1, m) if x in new_need]))
 
-        else:
-          mksub[s] = c * makecnt
-      print(sub, subcnt, reactions[sub], 'need', subcnt, 'must make', makecnt, mksub)
+    print([(k, len([x for x in factory.substrates(1, k) if x in new_need])) for k in keys])
 
-      for ms, mscnt in mksub.items():
-        if ms in subs:
-          subs[ms] += mscnt
-        else:
-          subs[ms] = mscnt
-    return subs
-
-  def simple_terms(substrates):
-    for sub, cnt in substrates.items():
-      if 'ORE' not in reactions[sub][0]:
-        return False
-    return True
-
-  def resolve(substrates, count=1, indent=0):
-    for sub, cnt in substrates.items():
-      if sub == 'ORE':
-        continue
-      print('        ' * indent, sub, reactions[sub][0])
-      resolve(*reactions[sub], indent=indent+1)
-
-
-  substrates, _ = reactions['FUEL']
-  '''
-  print(substrates)
-  subs = {}
-  for sub, cnt in substrates.items():
-    print(sub, reactions[sub][0])
-    for ssub, ccnt in reactions[sub][0].items():
-
-      if ssub in subs:
-        subs[ssub] += ccnt
+    key = keys[0]
+    print('revise', key)
+    needcnt = need[key]
+    del new_need[key]
+    subs = factory.substrates(needcnt, key)
+    for sub, subcnt in subs.items():
+      if sub in new_need:
+        new_need[sub] += subcnt
       else:
-        subs[ssub] = ccnt
-  print()
-  print(subs)
+        new_need[sub] = subcnt
 
+    return new_need
 
+  while not len(need) == 1:
+    need = revise(need)
+    print(need)
+    print()
 
-  '''
-  while not simple_terms(substrates):
-    print('\x1b[38;5;1mSTEP\x1b[0m')
-    substrates = find_substrates(substrates)
-    print(substrates)
-  substrates = find_substrates(substrates, simple=False)
-  print(substrates)
-
+  print(need)
 
 def part2(data):
   pass
 
 if __name__ == '__main__':
-  data = readlines(tpath('day14.txt', 'aoc2019'))
-
+  data = readlines(rpath('day14.txt', 'aoc2019'))
   print(part1(data))
-  #print(part2(data))
+  print(part2(data))

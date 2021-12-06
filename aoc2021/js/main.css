@@ -1,0 +1,55 @@
+body {
+  background-color: #282828;
+  color: #ddd;
+  margin: 0;
+  padding: 0;
+}
+
+#page {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+#menu {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Jetbrains Mono', monospace;
+}
+
+#menu a {
+  background-color: #383838;
+  padding: 10px;
+}
+
+#menu a:hover {
+  background-color: #283848;
+  cursor: pointer;
+}
+
+#content {
+  padding: 20px;
+}
+
+#content button {
+  font-family: 'Jetbrains Mono', monospace;
+  font-size: 14px;
+  padding: 2px 10px;
+  background-color: #283848;
+  color: #ddd;
+  border: none;
+  cursor: pointer;
+}
+
+#content button:hover {
+  color: #aad;
+}
+
+h1 {
+  font-family: 'Jetbrains Mono', monospace;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.menu {
+  margin-bottom: 10px;
+}

@@ -92,9 +92,15 @@ class Intcode:
     opc = Intcode.OPCODES[opc]
     return [int(mode) for mode in modes], opc
 
-  def read_output(self, clean=True):
-    out = self.outputs
-    self.outputs = []
+  def read_output(self, n=None, clean=True):
+    if n:
+      out = self.outputs[:n]
+      if clean:
+        self.outputs = self.outputs[n:]
+    else:
+      out = self.outputs
+      if clean:
+        self.outputs = []
     return out
 
   def execute(self):
@@ -135,7 +141,8 @@ class Intcode:
             if inp == '\\n':
               self.inputs.append(10)
             else:
-              self.inputs.append(ord(inp))
+              for c in inp:
+                self.inputs.append(ord(c))
           else:
             self.inputs.append(int(inp))
       self.dprint(f'[INP] Store {self.inputs[self.input_ptr]} at {dst}', color=3)
