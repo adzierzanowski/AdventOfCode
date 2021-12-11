@@ -31,7 +31,11 @@ def part2(data):
         depth += aim * dist
   return pos * depth
 
+def get_data():
+  return readlines(rpath('day02.txt', 'aoc2021'))
+
+
 if __name__ == '__main__':
-  data = readlines(rpath('day02.txt', 'aoc2021'))
+  data = get_data()
   print(part1(data))
   print(part2(data))

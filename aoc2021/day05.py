@@ -17,7 +17,6 @@ def part1(data):
 
   return len([v for v in Counter(pts).values() if v > 1])
 
-
 def part2(data):
   pts = []
   for line in data:
@@ -37,18 +36,13 @@ def part2(data):
       for x, y in zip(range(s[0], e[0]+1), range(s[1], e[1]+dy, dy)):
         pts.append((x, y))
 
-  for y in range(10):
-    for x in range(10):
-      if (x, y) in pts:
-        print('x', end='')
-      else:
-        print('.', end='')
-    print()
-
   return len([v for v in Counter(pts).values() if v > 1])
+
+def get_data():
+  return readlines(rpath('day05.txt', 'aoc2021'))
 
 
 if __name__ == '__main__':
-  data = readlines(rpath('day05.txt', 'aoc2021'))
+  data = get_data()
   print(part1(data))
   print(part2(data))

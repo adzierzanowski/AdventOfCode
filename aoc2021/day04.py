@@ -30,13 +30,16 @@ def part1(nums, boards):
 def part2(nums, boards):
   return score_after(len(boards), nums, boards)
 
-
-if __name__ == '__main__':
+def get_data():
   data = readlines(rpath('day04.txt', 'aoc2021'), sep='\n\n')
-
   nums, boards = data[0], data[1:]
   nums = [int(n) for n in nums.split(',')]
   boards = [[int(n) for n in re.split(r'\s+', b)] for b in boards]
+  return nums, boards
 
-  print(part1(nums, boards))
-  print(part2(nums, boards))
+
+if __name__ == '__main__':
+  data = get_data()
+
+  print(part1(*data))
+  print(part2(*data))

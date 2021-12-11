@@ -20,8 +20,11 @@ def part2(data):
   co2 = binfilter(data, lambda z, o: z > o)
   return oxy * co2
 
+def get_data():
+  return readlines(rpath('day03.txt', 'aoc2021'))
+
 
 if __name__ == '__main__':
-  data = readlines(rpath('day03.txt', 'aoc2021'))
+  data = get_data()
   print(part1(data))
   print(part2(data))

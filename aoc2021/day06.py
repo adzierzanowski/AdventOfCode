@@ -1,4 +1,6 @@
+from timeit import Timer
 from util.helpers import readlines, rpath, tpath
+
 
 def nextday(d):
   newd = {**d}
@@ -16,12 +18,15 @@ def part1(data):
 
 def part2(data):
   days = {i: data.count(i) for i in range(9)}
-  for i in range(256):
+  for i in range(1024):
     days = nextday(days)
   return sum(days.values())
 
+def get_data():
+  return readlines(rpath('day06.txt', 'aoc2021'), sep=',', conv=int)
+
 
 if __name__ == '__main__':
-  data = readlines(rpath('day06.txt', 'aoc2021'), sep=',', conv=int)
+  data = get_data()
   print(part1(data))
   print(part2(data))
