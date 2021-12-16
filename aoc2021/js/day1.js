@@ -33,22 +33,33 @@ class Day1 extends Day {
       ctx.fill();
 
       let i = 0;
+      let last = 0;
       let dst = 150;
       let pos = 150;
-      setInterval(() => {
-        if (pos == dst) {
-          dst = this.data[Math.floor(i/20)];
-        } else {
-          pos < dst ? pos++ : pos--;
-        }
+      const ival = setInterval(() => {
+        //if (pos == dst) {
+          last = this.data?.[Math.floor(i/4)-1];
+          pos = this.data[Math.floor(i/4)];
+          if (pos >= last) {
+            ctx.strokeStyle = '#ff0';
+          } else {
+            ctx.strokeStyle = '#f55';
+          }
+        //} else {
+          //pos < dst ? pos++ : pos--;
+        //}
         i++;
         ctx.beginPath();
-        ctx.moveTo(500, 150+pos/10);
-        ctx.lineTo(500, 151+pos/10);
+        ctx.moveTo(500, 150+pos/20);
+        ctx.lineTo(500, canvas.height);//151+pos/50);
         ctx.stroke();
         const chunk = ctx.getImageData(0, 150, 640, 480-150);
         ctx.putImageData(chunk, -1, 150);
+        if (i >= this.data.length) {
+          clearInterval(ival);
+        }
       }, 10);
+
 
       console.log(this.data);
     });
