@@ -52,9 +52,6 @@ class Vector:
   def __eq__(self, other):
     return self.v == other.v
 
-#  def __lt__(self, other):
-#    return self.v < other.v
-
   def __neg__(self):
     return Vector(*[-q for q in self.v])
 
